@@ -57,8 +57,8 @@ MockedProuductRouter.get("/edit_items",async (req,res)=>{
     let page = parseInt(req.query.page);
     if(!page) page=1;
     const products = await product.paginate([{},{page,limit:10,lean:true}])
-    products.prevLink = products.hasPrevPage?`http://localhost:3000/mockingproducts/edit_items/?page=${products.prevPage}`:'';
-    products.nextLink = products.hasNextPage?`http://localhost:3000/mockingproducts/edit_items/?page=${products.nextPage}`:'';
+    products.prevLink = products.hasPrevPage?`https://proyectofinal-hw87.onrender.com/${products.prevPage}`:'';
+    products.nextLink = products.hasNextPage?`https://proyectofinal-hw87.onrender.com/${products.nextPage}`:'';
     products.isValid= !(page<=0||page>products.totalPages)
     const current_user=req.session.user
     res.render('index',{
