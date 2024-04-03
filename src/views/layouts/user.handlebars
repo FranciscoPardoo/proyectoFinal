@@ -1,0 +1,71 @@
+{{#if users.isValid}}
+<div style="display: flex; align-items: center;">
+    <h1 style="margin-left: 15px;">Bienvenido, {{current_user.name}}</h1>
+</div>
+
+
+{{#unless isAdmin}}
+<div style="display: flex; align-items: center;">
+    <form  action="/api/users/current" method ="get">
+        <button type="submit">Perfil</button>
+    </form>
+    <form  style="margin-left: 15px;" id="cart" action="/api/cart/{{current_user._id}}" method="get">
+        <button type="submit" id="cart">Ir al carrito</button>
+    </form>
+{{/unless}}
+    <form id="log_out" action="/api/products/" method="get">
+        <button type="submit" id="products">Abrir catalogo</button>
+    </form> 
+    <form  style="margin-left: 15px;" id="log_out" action="/api/sessions/logout" method="post">
+        <button type="submit" id="log_out">Cerrar sesión</button>
+    </form>
+</div>
+
+
+<div>
+    {{#each users.docs}}
+        <ul id={{this._id}}>
+        <h2>ID:{{this._id}} Nombre: {{this.name}}</h2>
+        <li>Apellido: {{this.last_name}}</li>
+        <li>Email: {{this.email}}</li>
+        <li>Age: {{this.age}} años</li>
+        <li>cart_id:{{this.cart_id}}</li>
+        <li>Rol: {{this.role}}</li>
+        <li>Documentos: {{this.documents}}</li>
+        <li>Ultima conección: {{this.last_connection}}</li>
+        </ul>
+        <form id="edit_user" action="/api/users/edit/{{this._id}}" method="get">
+            <button type="submit">Editar rol de usuario</button>
+        </form>
+        {{#if this.inactive}}
+        <form id="check_delete" action="/api/users/delete/{{this._id}}" method="get">
+            <button type="submit" value={{this._id}}>Eliminar usuario inactivo</button>
+        </form>
+        {{/if}}
+        </br>
+    {{/each}}
+</div>
+<br/>
+<div>
+    {{#if products.hasPrevPage}}
+        <a href={{products.prevLink}}><< Regresar</a>
+    {{/if}}
+    &nbsp;
+    {{products.page}}
+    &nbsp;  
+    {{#if products.hasNextPage}}
+        <a href={{products.nextLink}}>Siguiente >></a>
+    {{/if}} 
+</div>
+{{else}}
+<h1>No hay artículos disponibles en este momento </h1>
+{{/if}}
+
+</div>
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script type="text/javascript" src="/socket.io/socket.io.js"></script>
+<script type="module" src="/js/user.index.js"></script>
+<link rel="stylesheet" href="/css/styles.css">

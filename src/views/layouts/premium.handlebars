@@ -1,0 +1,29 @@
+<div style="display: flex; align-items: center;">
+    <h1>El programa Premium</h1>
+</div>
+    <p>UID:{{user._id}}</p>
+    <p>Bienvenido {{user.name}}, aquí puedes cambiar tu perfil por un perfil premium
+
+{{#if premium}}
+        <br>
+        <br>Usted forma parte del programa Premium
+        <form id="leave_prem" action="/api/users/premium/{{user._id}}" method="post">
+        <button type="submit" id="leave prem">Baja Premium</button>
+    </form>
+{{else}}
+        <br>Uniéndote a este programa podrás publicar y vender tus propios productos
+        <form id="join_perm" action="/api/users/premium/{{user._id}}" method="post">
+            <button type="submit" id="join prem">Únete a Premium</button>
+        </form>
+</p>
+{{/if}}
+    </p>
+    <br>
+    <form id="go back" action="/api/users/current" method="get">
+            <button type="submit" id="back_btn">Regresar</button>
+    </form>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script type="text/javascript" src="/socket.io/socket.io.js"></script>
+<script type="module" src="/js/index.js"></script>
+<link rel="stylesheet" href="/css/styles.css">

@@ -1,0 +1,92 @@
+<body>
+    {{#if products.isValid}}
+    <div>
+        <h1 style="margin-left: 15px;">Bienvenido, {{current_user.name}}</h1>
+    </div>
+    <h3>{{current_user.role}}: {{current_user.email}}</h3>
+    {{#if isAdmin}}
+        <p>Felicitaciones {{current_user.name}}, sólo usted puede ver este menú</p>
+        <form action="/api/products/edit_items" method="get">
+            <button type="submit">Editar Productos</button>
+        </form>
+        {{#if UDacess}}
+            <form action="/api/users/" method="get">
+                <button type="submit">Base de datos de usuarios SÓLO ADMIN</button>
+            </form>
+        {{/if}}
+    {{/if}}
+
+    {{#unless isAdmin}}
+    <div style="display: flex; align-items: center;">
+        <form action="/api/users/current" method="get">
+            <button type="submit">Perfil</button>
+        </form>
+        <form style="margin-left: 15px;" id="cart" action="/api/cart/{{current_user._id}}" method="get">
+            <button type="submit">Ir al carrito</button>
+        </form>
+    </div>
+    {{/unless}}
+    <form style="margin-left: 15px;" id="log_out" action="/api/sessions/logout" method="post">
+        <button type="submit">Cerrar sesión</button>
+    </form>
+    <div id="usercart">
+    </div>
+    <h1>Productos</h1>
+    <div class="form-group">
+        <label for="country">Ordenar Por:</label>
+        <select name="SortBy" id="SortBy" class="select">
+            <option value="Category">Categoría</option>
+            <option value="Price">Precio</option>
+        </select>
+        <label for="Category"></label>
+        <select name="Category" id="Category" class="select">
+            <option value="ALL">TODOS</option>
+            <option value="655ad7223a1cc5c2459344cd">Ropa</option>
+            <option value="655b805a1670771b144fdd88">Decoración</option>
+            <option value="655b8093cee694d86c43a31a">Electronica</option>
+            <option value="655b80b66c2c23d0e7344823">Electrodomésticos</option>
+        </select>
+        <label for="Price_sort"></label>
+        <select name="Price_sort" id="Price_sort" class="select">
+            <option value="asc">ASC Bajo-Alto</option>
+            <option value="desc">DESC Alto-Bajo</option>
+        </select>
+        <button type="submit" value="" id="sort_button">Ordenar</button>
+    </div>
+    <div>
+        {{#each products.docs}}
+            {{#if this.visible}}
+                <ul id={{this._id}}>
+                    <h2>ID:{{this._id}} Nombre: {{this.title}}</h2>
+                    <img src="{{this.thumbnail}}" style="width:150px; border:1px solid black;" alt="imagen">
+                    <li>Propietario: {{this.owner}}</li>
+                    <li>Descripción: {{this.description}}</li>
+                    <li>Código: {{this.code}}</li>
+                    <li>Precio: {{this.price}}</li>
+                    <li>Categoría: {{this.category}}</li>
+                </ul>
+                <button type="submit" class="add_to_cart" value={{this._id}}>Añadir al carrito</button>
+                <br>
+            {{/if}}
+        {{/each}}
+    </div>
+    <div>
+        {{#if products.hasPrevPage}}
+            <a href={{products.prevLink}}>&lt;&lt; Regresar</a>
+        {{/if}}
+        &nbsp;
+        {{products.page}}
+        &nbsp;
+        {{#if products.hasNextPage}}
+            <a href={{products.nextLink}}>Siguiente &gt;&gt;</a>
+        {{/if}}
+    </div>
+    {{else}}
+    <h1>No hay artículos disponibles en este momento </h1>
+    {{/if}}
+</body>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script type="text/javascript" src="/socket.io/socket.io.js"></script>
+<script type="module" src="/js/index.js"></script>
+<link rel="stylesheet" href="/css/styles.css">

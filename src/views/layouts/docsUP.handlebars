@@ -1,0 +1,26 @@
+
+<div style="display: flex; align-items: center;">
+    <h2 style="margin-left: 15px;">Perfil de usuario</h2>
+</div>
+<div>
+    <h2>Carga de archivos</h2>
+    <p>Aquí puede cargar los archivos para la comprobación premium: </p>
+    <div class="col-md-6">
+        <form action="/api/users/{{uid}}/documents" method="POST" enctype="multipart/form-data">
+            Cargar documento de identidad: </br><input type="file" name="ID"></br></input></br>
+            Suba la prueba de residencia: </br><input type="file" name="RESIDENCE"></br></input></br>
+            Cargar extracto de cuenta bancaria: </br><input type="file" name="BANK_PROFF"></br></input></br>
+            Sube una foto de perfil: </br><input type="file"  multiple accept="image/*" name="PROFILE_PIC" ></br></input></br>
+            </br>
+            <button type="submit">Cargar </button>
+        </form>
+        <form id="go back" action="/api/users/current" method="get">
+                <button type="submit" id="back_btn">Go Back</button>
+        </form>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script type="text/javascript" src="/socket.io/socket.io.js"></script>
+<script type="module" src="/js/index.js"></script>
+<link rel="stylesheet" href="/css/styles.css">

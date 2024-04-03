@@ -1,0 +1,17 @@
+<body>
+    <h1>¿No tiene una cuenta? Regístrese aquí.</h1>
+    <div>
+        <form style="display: flex; flex-direction:column; width: 200px;" action="/api/sessions/register" method="post">
+            <input type="text" name="name" placeholder="nombre" />
+            <input style="margin-top: 5px;" type="text" name="last_name" placeholder="apellido" />
+            <input style="margin-top: 5px;" type="email" name="email" placeholder="email" />
+            <input style="margin-top: 5px;" type="date" name="age" placeholder="fecha de nacimiento" />
+            <input style="margin-top: 5px;" type="password" name="password" placeholder="contraseña" />
+            <button style="margin-top: 10px;" type="submit" value="Registro"> Registrarme</button> 
+    </form>
+    <div>
+    <form  action="/" method ="get">
+        <button type="submit">Regresar</button>
+    </form> 
+    <link rel="stylesheet" href="/css/styles.css">  
+</body>

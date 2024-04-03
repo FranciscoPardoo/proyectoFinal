@@ -1,0 +1,54 @@
+
+<div style="display: flex; align-items: center;">
+    <h1 style="margin-left: 15px;">¿Desea eliminar este usuario?</h1>
+</div>
+
+{{#unless isAdmin}}
+<div style="display: flex; align-items: center;">
+    <form  action="/api/users/current" method ="get">
+        <button type="submit">Perfil</button>
+    </form>
+    <form  style="margin-left: 15px;" id="cart" action="/api/cart/{{current_user._id}}" method="get">
+        <button type="submit" id="cart">Ir al carrito</button>
+    </form>
+{{/unless}}
+</div>
+
+
+<div>
+    <ul id={{users._id}}>
+        <h2>ID:{{users._id}} Nombre: {{users.name}}</h2>
+        <li>Apellido: {{users.last_name}}</li>
+        <li>Email: {{users.email}}</li>
+        <li>Años: {{users.age}} years Old</li>
+        <li>cart_id:{{users.cart_id}}</li>
+        <li>rol: {{users.role}}</li>
+        <li>Documentos: {{users.documents}}</li>
+        <li>Ultima conección: {{users.last_connection}}</li>
+    </ul>
+    <form id="delete_confirm" action="/api/users/delete/{{users._id}}" method="post">
+        <button type="submit" id="delete">Eliminar usuario</button>
+    </form>
+    <form id="log_out" action="/api/users/" method="get">
+        <button type="submit" id="products">Regresar</button>
+    </form> 
+    </br>
+</div>
+<br/>
+<div>
+    {{#if products.hasPrevPage}}
+        <a href={{products.prevLink}}><< Regresar</a>
+    {{/if}}
+    &nbsp;
+    {{products.page}}
+    &nbsp;  
+    {{#if products.hasNextPage}}
+        <a href={{products.nextLink}}>Siguiente >></a>
+    {{/if}} 
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script type="text/javascript" src="/socket.io/socket.io.js"></script>
+<script type="module" src="/js/user.index.js"></script>
+
+<link rel="stylesheet" href="/css/styles.css">

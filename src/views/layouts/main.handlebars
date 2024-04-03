@@ -1,0 +1,27 @@
+<body>
+    <div>
+        <h1 style="font-size: 50px;">Bienvenido a Mapple 🍎</h1>
+    </div>
+    <div>
+        <form style="display: flex; align-items: flex-end; width: 300px; flex-direction:column;" id="loginForm" action="/api/sessions/login" method="post">
+            <label style="margin-bottom: 10px;" for="email">Usuario:
+                <input type="text" id="email" name="email" required>
+            </label>
+            <label for="password">Contraseña:
+                <input type="password" id="password" name="password" required>
+            </label>
+            <button style="margin-top: 10px; width:133px;" type="submit">Ingresar</button>
+        </form>
+        <form style="display: flex; align-items: flex-end; width: 300px; flex-direction:column;" id="forgotten" action ="/recovery"method ="get">
+            <button  type="submit"> Olvidé la contraseña</button>
+        </form>
+        <form style="display: flex; align-items: center; width: 450px; flex-direction:column;" id="register_rerout" action="/register" method="get">
+            <h3>¿No tiene una cuenta? Regístrese aquí.</h3>
+            <button style="margin-right: 7px;" type="submit" id="register_btn">Registrarme</button>
+        </form>     
+    </div>
+</body>
+
+    <script type="text/javascript" src="/socket.io/socket.io.js"></script>
+    <script type="module" src="/js/log.index.js"></script>
+    <link rel="stylesheet" href="/css/styles.css">

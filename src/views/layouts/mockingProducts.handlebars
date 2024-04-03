@@ -1,0 +1,92 @@
+{{#if products.isValid}}
+<div style="display: flex; align-items: center;">
+    <h1 style="margin-left: 15px;">Bienvenido</h1>
+</div>
+<h3>ROL: EMAIL</h3>
+{{#if isAdmin}}
+<p>Felicitaciones {{current_user.name}}, sólo usted puede ver este menú.</p>
+<form  action="/api/products/edit_items" method ="get">
+    <button type="submit">Editar Productos</button>
+</form>
+{{/if}}
+<div style="display: flex; align-items: center;">
+    <form >
+        <button type="submit">Perfil</button>
+    </form>
+{{#unless isAdmin}}
+<form  style="margin-left: 15px;">
+    <button type="submit" id="cart">Ir al carrito</button>
+</form>
+{{/unless}}
+<form  style="margin-left: 15px;">
+    <button type="submit" id="log_out">Cerrar sesión</button>
+</form>
+</div>
+<div id="usercart">  
+</div>
+<div>
+<h1>Productos</h1>
+
+<div class="form-group">
+    <label for="country">Ordenar Por:</label>
+    <select name="SortBy" id="SortBy" class="select">
+        <option value="Category">Categoria</option>
+        <option value="Price">Precio</option>
+    </select>
+    <label for="Category"></label>
+    <select name="Category" id="Category" class="select">
+        <option value="ALL">ALL</option>
+        <option value="655ad7223a1cc5c2459344cd">Ropa</option>
+        <option value="655b805a1670771b144fdd88">Decoracion</option>
+        <option value="655b8093cee694d86c43a31a">Electronica</option>
+        <option value="655b80b66c2c23d0e7344823">Electrodomésticos</option>
+    </select>
+    <label for="Price_sort"></label>
+    <select name="Price_sort" id="Price_sort" class="select">
+        <option value="asc">ASC BAJO-ALTO</option>
+        <option value="desc">DESC ALTO- BAJO</option>
+    </select>
+    <button type="submit" value="" id="sort_button">Ordenar</button>
+</div>
+
+
+
+<div>
+        {{#each products.docs}}
+            {{#if this.visible}}
+                <ul id={{this._id}}>
+                <h2>ID:{{this._id}} Nombre: {{this.title}}</h2>
+                <img src="{{this.thumbnail}}" style="width:150px; border:1px solid black; "alt="imagen">
+                <li>Descripcion: {{this.description}}</li>
+                <li>Codigo: {{this.code}}</li>
+                <li>Precio: {{this.price}}</li>
+                <li>categoria:{{this.category}}</li>
+                </ul>
+                <button type="submit" id="" class="add_to_cart" value={{this._id}}>Añadir al carrito</button>
+                </br>
+            {{/if}}
+        {{/each}}
+</div>
+<br/>
+<div>
+    {{#if products.hasPrevPage}}
+        <a href={{products.prevLink}}><< Regresar</a>
+    {{/if}}
+    &nbsp;
+    {{products.page}}
+    &nbsp;
+    &nbsp; 
+    {{#if products.hasNextPage}}
+        <a href={{products.nextLink}}>Siguiente >></a>
+    {{/if}} 
+</div>
+{{else}}
+<h1>No hay artículos disponibles en este momento </h1>
+{{/if}}
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script type="text/javascript" src="/socket.io/socket.io.js"></script>
+<script type="module" src="/js/mock.index.js"></script>
+<link rel="stylesheet" href="/css/styles.css">

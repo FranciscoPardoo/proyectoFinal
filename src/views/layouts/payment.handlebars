@@ -1,0 +1,30 @@
+<h1>Las siguientes productos están listos para pagar</h1>
+<div id="usercart">
+</div>
+<div>
+    <form  action="/api/products" method ="get">
+        <button type="submit">Regresar</button>
+    </form>
+</div>
+
+
+<div id="usercart">
+    {{#each cart.docs}}
+        <ul id={{this._id}}>
+        <h2>ID:{{this._id}} Nombre: {{this.title}}</h2>
+        <img src="{{this.thumbnail}}" style="width:150px; border:1px solid black; "alt="imagen">
+        <li>Descripcion: {{this.description}}</li>
+        <li>Codigo: {{this.code}}</li>
+        <li>Precio: {{this.price}}</li>
+        <li>categoria:{{this.category}}</li>
+        </ul>
+        <button type="submit" id="" class="add_to_cart" value={{this._id}}>Añadir al carrito</button>
+        </br>
+    {{/each}}
+</div>
+
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script type="text/javascript" src="/socket.io/socket.io.js"></script>
+<script type="module" src="/js/pay.index.js"></script>
+<link rel="stylesheet" href="/css/styles.css">

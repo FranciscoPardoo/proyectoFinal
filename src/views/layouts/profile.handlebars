@@ -1,0 +1,37 @@
+<body>
+    <div style="display: flex; align-items: center;">
+        <h2 style="margin-left: 15px; font-size: 50px;">Perfil de usuario</h2>
+    </div>
+    {{#if user}}
+        <p style="font-size: 20px">Bienvenido {{user.name}}, {{user.last_name}}!</p>
+        <p style="font-size: 20px">Email: {{user.email}}</p>
+        <p style="font-size: 20px">El ID de su carrito es: {{user.cart_id}}</p>
+    <div class="col-md-6">
+        <form id="log_out" action="/api/products/" method="get">
+            <button type="submit" id="products">Abrir el catálogo</button>
+        </form> 
+        <form action="/api/users/{{user._id}}/documents" method="get">
+            <button type="submit">
+                Cargar documentos
+            </button>
+        </form>
+        {{#if paths}}
+        </form> 
+        <form action="/api/users/premium/{{user._id}}" method="get">
+            <button type="submit">
+                Programa Premium 
+            </button>
+        </form>
+        {{/if}}
+        <form id="log_out" action="/api/sessions/logout" method="post">
+            <button type="submit" id="log_out">Cerrar sesión</button>
+        </form></div>
+    {{else}}
+        <p>Usuario no registrado</p>
+    {{/if}} 
+</body>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script type="text/javascript" src="/socket.io/socket.io.js"></script>
+    <script type="module" src="/js/index.js"></script>
+    <link rel="stylesheet" href="/css/styles.css"> 
